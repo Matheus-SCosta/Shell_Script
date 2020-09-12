@@ -1,0 +1,112 @@
+questao1-
+
+echo "Nunca deixe ninguem dizer que você não consegue, Pois de tudo você pode"
+
+
+questao2-
+
+read -p "Diretorio 1: " dir1
+read -p "Diretorio 2: " dir2
+read -p "Diretorio 3: " dir3
+
+echo "Diretorio ${dir1}"
+ls ${dir1}
+echo " "
+
+echo "Diretorio ${dir2}"
+ls ${dir2}
+echo " "
+
+echo "Diretorio ${dir3}"
+ls ${dir3}
+echo " "
+
+
+questao3-
+
+
+
+echo "Diretorio ${1}"
+ls ${1}
+echo " "
+
+echo "Diretorio ${2}"
+ls ${2}
+echo " "
+
+echo "Diretorio ${3}"
+ls ${3}
+echo " "
+
+
+questao4-
+
+
+
+echo "Diretorio ${1}"
+ls ${1} > /tmp/que_lista_linda.txt
+echo " "
+
+echo "Diretorio ${2}"
+ls ${2} >> /tmp/que_lista_linda.txt
+echo " "
+
+echo "Diretorio ${3}"
+ls ${3} >> /tmp/que_lista_linda.txt
+echo " "
+
+
+questao5-
+
+DATA=$(date +%Y-%m-%d)
+arquivos=$(ls)
+mkdir /bin/${DATA}
+cp $arquivos /bin/${DATA} &>/dev/null
+
+questao6-
+
+DATA=$(date +%Y-%m-%d)
+arquivos=$(ls)
+mkdir /bin/${DATA}
+cp ${arquivos} /bin/${DATA} &>/dev/null
+zip ${DATA}.zip /bin/${DATA} &>/dev/null
+rm -rf /bin/${DATA}
+
+
+
+questao7-
+
+A=$(ls -l ${1})
+B=$(ls -l ${2})
+C=$(ls -l ${3})
+
+echo ${A} > info.txt
+echo ${B} >> info.txt
+echo ${C} >> info.txt
+
+
+questao8-
+
+echo "Substituiçao de variável é quando você atribui a uma variavel um valor, podendo substituir o valor que contem na variavel"
+echo "Exemplo:"
+echo "A=10"
+echo "A=20"
+echo 'echo $A'
+echo "20"
+echo "B=30"
+echo 'A=${B}'
+echo 'echo ${A}'
+echo "30"
+echo 'C=${A}${B}'
+echo 'echo ${C}'
+echo "3030"
+echo "Já a substituição de shell, utiliza-se comandos"
+echo "Exemplo:"
+echo 'diretorio_atual=$(pws)
+echo 'echo ${diretorio_atual}
+echo "/home"
+
+
+
+
+ 
