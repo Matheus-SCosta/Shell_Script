@@ -1,0 +1,9 @@
+#Nesse exemplo é dado o nome de 3 diretórios por linha de comando e é feito a contagem de quantos arquivos cada diretório possui, usando substituição de Shell.
+
+A=$1
+B=$2
+C=$3
+x=$(find ${A} -type f | wc -l)
+y=$(find ${B} -type f | wc -l)
+z=$(find ${C} -type f | wc -l)
+echo "Os diretórios ${A}, ${B},${C} possuem ${x}, ${y}, ${z} arquivos, respectivamente"

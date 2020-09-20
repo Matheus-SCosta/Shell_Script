@@ -1,0 +1,11 @@
+#Verificar se o diretório existe através do comando test -d, com dados de entrada inseridos pelo usuário. Caso o arquivo existe, o nome do arquivo será direcionado para o arquivo "arquivosexistentes.txt" e caso não existe o nome do arquivo será direcionado para "arquivosnaoexistentes.txt"
+
+read -p "Diretório 1 a procurar: " diretorio1
+read -p "Diretório 2 a procurar: " diretorio2
+read -p "Diretório 3 a procurar: " diretorio3
+
+test -d ${diretorio1} && echo ${diretorio1} > arquivosexistentes.txt || echo ${diretorio1} > arquivosnaoexistentes.txt
+
+test -d ${diretorio2} && echo ${diretorio2} >> arquivosexistentes.txt || echo ${diretorio2} >> arquivosnaoexistentes.txt
+
+test -d ${diretorio3} && echo ${diretorio3} >> arquivosexistentes.txt || echo ${diretorio3} >> arquivosnaoexistentes.txt

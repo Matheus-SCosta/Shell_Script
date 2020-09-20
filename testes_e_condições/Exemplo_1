@@ -1,0 +1,11 @@
+	#Verificar se o diretório existe através do comando test -d, com dados de entrada inseridos pelo usuário.
+
+read -p "Diretório 1 a procurar: " diretorio1
+read -p "Diretório 2 a procurar: " diretorio2
+read -p "Diretório 3 a procurar: " diretorio3
+
+test -d $diretorio1 && echo "Diretório $diretorio1 existente" || echo "Diretório $diretorio1 não existente"
+
+test -d $diretorio2 && echo "Diretório $diretorio2 existente" || echo "Diretório $diretorio2 não existente"
+
+test -d $diretorio3 && echo "Diretório $diretorio3 existente" || echo "Diretório $diretorio3 não existente"

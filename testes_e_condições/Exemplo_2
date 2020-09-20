@@ -1,0 +1,18 @@
+#Nesse exemplo um script shell que pede para o usuário digitar o nome de dois arquivos, e imprime a diferença entre o número de linhas destes. Utilizado, substituição de Shell, aritmética de Shell, uso do comando test -gt para testar condições.
+
+
+read -p "Arquivo 1: " arquivo1
+read -p "Arquivo 2: " arquivo2
+
+linhas_arquivo1=$(cat ${arquivo1} | wc -l)
+linhas_arquivo2=$(cat ${arquivo2} | wc -l)
+
+test ${linhas_arquivo1} -gt ${linhas_arquivo2} && maior=${linhas_arquivo1} || menor=${linhas_arquivo1}
+
+test ${linhas_arquivo2} -gt ${linhas_arquivo1} && maior=${linhas_arquivo2} || menor=${linhas_arquivo2}
+
+diferenca=$(( ${maior} - ${menor} ))
+
+echo "Arquivo ${arquivo1} possui ${linhas_arquivo1} linhas"
+echo "Arquivo ${arquivo2} possui ${linhas_arquivo2} linhas"
+echo "Ambos arquivos, possuem diferença de ${diferenca} linhas"

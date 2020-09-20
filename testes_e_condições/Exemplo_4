@@ -1,0 +1,16 @@
+#Nesse exemplo o programa pede para que o usuário informei 3 arquivos, e imprime qual o arquivo que possui mais linhas. Utilizo de substituição de Shell, uso do comando test -gt.
+
+
+read -p "Arquivo 1: " arquivo1
+read -p "Arquivo 2: " arquivo2
+read -p "Arquivo 3: " arquivo3
+
+linhasarquivo1=$(cat ${arquivo1} | wc -l)
+linhasarquivo2=$(cat ${arquivo2} | wc -l)
+linhasarquivo3=$(cat ${arquivo3} | wc -l)
+
+test ${linhasarquivo1} -gt ${linhasarquivo2} && ${linhasarquivo1} -gt ${linhasarquivo3} && echo "Arquivo 1 possui mais linhas"
+
+test ${linhasarquivo2} -gt ${linhasarquivo1} && ${linhasarquivo2} -gt ${linhasarquivo1} && echo "Arquivo 2 possui mais linhas"
+
+test ${linhasarquivo3} -gt ${linhasarquivo1} && ${linhasarquivo3} -gt ${linhasarquivo2} && echo "Arquivo 3 possui mais linhas"

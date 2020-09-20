@@ -1,0 +1,16 @@
+ # Script que usa o arquivo /etc/passwd para contar o número de usuários do sistema. Adicionalmente, uso grep, wc -l e substituição de shell para verificar quantos usuários usam /bin/bash como interpretador de comandos padrão. Uso aritmética do shell para calcular quantos usuários não usam /bin/bash como interpretador de comandos padrão.
+
+
+
+diretorio=/etc/passwd
+
+usuarios_de_sistema=$(cat $diretorio | wc -l)
+
+usuarios_que_usam_bin_bash=$(grep "/bin/bash" $diretorio | wc -l)
+
+usuarios_que_nao_usam_bin_bash=$(($usuarios_de_sistema-$usuarios_que_usam_bin_bash))
+
+echo "Diretorio /etc/passwd tem ${usuarios_de_sistema} usuários, deste ${usuarios_que_usam_bin_bash} estão usando o /bin/bash como interpretador de comandos e ${usuarios_que_nao_usam_bin_bash} não estão usando"
+
+
+
