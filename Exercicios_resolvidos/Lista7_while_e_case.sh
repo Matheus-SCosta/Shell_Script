@@ -23,7 +23,7 @@ read -p "Opção" opc
 		            echo "-e significa teste se o arquivo existe"
 		            echo "-f significa teste se o arquivo existe e é um arquivo comum" ;;
 		"extended") echo " [[ ]] servem para fazer comparação de string, se é > ou <" ;;
-		"sair") break
+		"sair") break ;;
 	esac
 done 
 
@@ -146,11 +146,11 @@ done < ips.txt
 while true; do
 echo "As opções de terminadores além do ; são ;;& e ;&"
 ecgo "Para sair digite q"
-read -p "Qual terminador deseja saber sobre? Digite qual deseja" opc 
+read -p "Qual terminador deseja saber sobre? Digite qual deseja" opc
 	case ${opc} in
-		";;&") echo Quando um bloco de comandos for encerrado com este terminador, o programa não sairá do case, mas testará os próximos padrões ;;
-		";&") echo Neste caso, o próximo bloco será executado, sem sequer testar o seu padrão.
-		"q") break
+		";;&") echo "Quando um bloco de comandos for encerrado com este terminador, o programa não sairá do case, mas testará os próximos padrões" ;;
+		";&") echo "Neste caso, o próximo bloco será executado, sem sequer testar o seu padrão." ;;
+		"q") break ;;
 	esac
 done 
 
@@ -168,18 +168,20 @@ done
 
 echo " Esse script serve para saber as diferenças entre while e until de forma simples"
 read -p "Para saber sobre o while, digite while e para saber sobre until, digite until: " opcao
-	case ${opcao} in
-		"while") echo "O while funcionará enquando uma condição for verdadeira, por exemplo no script abaixo ele vai funcionar enquanto a variável i for menor que 5, diferentemente do until. Para saber mais sobre o until selecione a opção until"
+case ${opcao} in
+	"while") echo "O while funcionará enquando uma condição for verdadeira, por exemplo no script abaixo ele vai funcionar enquanto a variável i for menor que 5, diferentemente do until. Para saber mais sobre o until selecione a opção until"
 		echo "i=0"
 		echo "while (( ${i} < 5 )); do"
 		echo "		echo ${i}"
 		echo "		i=$(( i + 1 ))"
-		echo "done"
-		"until") echo "O until funcionará enquanto uma condição for falsa, por exemplo no script abaixo ele vai funcionar enquanto a variável i for menor que 5, diferentemente do while. Para saber mais sobre o while selecione a opção while"
+		echo "done" ;;
+	"until") echo "O until funcionará enquanto uma condição for falsa, por exemplo no script abaixo ele vai funcionar enquanto a variável i for menor que 5, diferentemente do while. Para saber mais sobre o while selecione a opção while"
 		echo "i=0"
 		echo "until (( ${i} == 5 )); do"
 		echo "		echo ${i}"
 		echo "		i=$(( i + 1 ))"
-		echo "done"
-		
+		echo "done" ;;
+esac
+
+
 
