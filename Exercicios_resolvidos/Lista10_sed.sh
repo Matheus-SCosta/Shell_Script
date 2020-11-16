@@ -1,9 +1,9 @@
 # Lista 10 (Sed)
 
- Todas as soluções devem usar o comando sed com expressões regulares.
+# Todas as soluções devem usar o comando sed com expressões regulares.
 
-1 - Escreva um script que, baseado em opções de linha de comando:
-a - Remova todas as letras de um arquivo.
+#1 - Escreva um script que, baseado em opções de linha de comando:
+#a - Remova todas as letras de um arquivo.
 
 #!/bin/bash
 
@@ -13,7 +13,7 @@ rm ${arq}
 cp arq_aux ${arq}
 rm arq_aux
 
-b - Remova todos os dígitos de um arquivo.
+#b - Remova todos os dígitos de um arquivo.
 
 #!/bin/bash
 
@@ -24,7 +24,7 @@ cp arq_aux ${arq}
 rm arq_aux
 
 
-c - Remova todos os caracteres que não são letras nem dígitos de um arquivo.
+#c - Remova todos os caracteres que não são letras nem dígitos de um arquivo.
 
 #!/bin/bash
 
@@ -35,13 +35,13 @@ cp arq_aux ${arq}
 rm arq_aux
 
 
-2 - Dado um arquivo cuja primeira linha é o título e as linhas seguintes são ítens de uma lista. Escreva um script que crie um arquivo html completo usando o conteúdo do arquivo de entrada. Exemplo de arquivo:
+#2 - Dado um arquivo cuja primeira linha é o título e as linhas seguintes são ítens de uma lista. Escreva um script que crie um arquivo html completo usando o conteúdo do arquivo de entrada. Exemplo de arquivo:
 
-	Lista de IPs
-	8.8.8.8
-	8.8.4.4
-	127.0.0.1
-	123.123.123.1
+#	Lista de IPs
+#	8.8.8.8
+#	8.8.4.4
+#	127.0.0.1
+#	123.123.123.1
 
 
 #!/bin/bash
@@ -61,7 +61,7 @@ rm arq_au*
 
 
 
-3 - Escreva um script que remova todos os números de telefone de um arquivo de entrada, alterando o seu valor para **CENSURADO**.
+#3 - Escreva um script que remova todos os números de telefone de um arquivo de entrada, alterando o seu valor para **CENSURADO**.
 
 #!/bin/bash
 
@@ -72,15 +72,15 @@ cp arq_aux ${arquivo_com_telefones}
 rm arq_aux
 
 
-obs: usei como exemplo o arquivo telefones.txt
+#obs: usei como exemplo o arquivo telefones.txt
 
-maria (83) 966532145
-joão (83) 963654123
-lucas (83) 9867452364
-antonia (83) 9656897451
-...
+#maria (83) 966532145
+#joão (83) 963654123
+#lucas (83) 9867452364
+#antonia (83) 9656897451
+#...
 
-...
+#...
 
 
 4 - Escreva um script que, dado uma lista de CPFs no formato xxxxxxxxxxx, coloque cada cpf no formato xxx.xxx.xxx-xx.
