@@ -83,7 +83,7 @@ rm arq_aux
 #...
 
 
-4 - Escreva um script que, dado uma lista de CPFs no formato xxxxxxxxxxx, coloque cada cpf no formato xxx.xxx.xxx-xx.
+#4 - Escreva um script que, dado uma lista de CPFs no formato xxxxxxxxxxx, coloque cada cpf no formato xxx.xxx.xxx-xx.
 
 #!/bin/bash
 
@@ -91,5 +91,5 @@ read -p "Arquivo: " arq
 sed 's/\(...\)\(...\)\(...\)\(..\)/\1.\2.\3-\4/' < ${arq} > arq_aux
 rm ${arq}
 cp arq_aux ${arq}
-rmm arq_aux
+rm arq_aux
 
