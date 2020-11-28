@@ -2,32 +2,41 @@
 
 
 CONF="restauracao.conf"
-DATA=$(date "+%Y-%m-%d")
-BACKUP="backup-$DATA.tar.gz"
 read -p "User to restore: " user
 read -p "Password client restoration : " password
 
 source $CONF
 
-# Pecorrendo o vetor para encontrar o usuário informado para fazer a restauração
+
+
+# Pecorrendo o vetor do arquivo de configuração para encontrar o usuário informado para fazer a restauração
 for i in ${REMOTE_USER[@]};do
-        # Quando encontrar
-        if [ $i == $user ]; then
-                # Apagando todos os arquivos do diretorio /home/user
-                sshpass -p $password ssh ${REMOTE_USER[$i]}@${REMOTE_HOST[$i]} rm -rf ${REMOTE_DIR[$i]}*
+        if [ $i == $user ]; then # se o usuário existe no arquivo de configuração
+                dir=$(ls ${SOURCE[$i]} 2>/dev/null) # listo tudo no caminho relativo /home/servidor/Documents/backup/user, caso não exista esse diretorio significa que para esse usuário não há backup realizado $                if [ -n "$dir" ]; then # caso o caminho relativo /home/servidor/Documents/backup/user exista a variavel dir terá conteudo e entrará na condição
 
-                # Transferir arquivo compactado para a maquina cliente
-                sshpass -p $password scp ${SOURCE[$i]} ${REMOTE_USER[$i]}@${REMOTE_HOST[$i]}:${REMOTE_DIR[$i]}
+                        # Apagando todos os arquivos do diretorio /home/user
+                        sshpass -p $password ssh ${REMOTE_USER[$i]}@${REMOTE_HOST[$i]} rm -rf ${REMOTE_DIR[$i]}*
 
-                # ssh no cliente e descompactação de arquivo no cliente
-                sshpass -p $password ssh ${REMOTE_USER[$i]}@${REMOTE_HOST[$i]} tar -vzxf $BACKUP >/dev/null && echo "Arquivo $BACKUP transferido para $REMOTE_USER $REMOTE_HOST e descompactado em $REMOTE_USER"
+                        # Transferir arquivo(os) compactado(os) para a maquina cliente
+                        sshpass -p $password scp ${SOURCE[$i]} ${REMOTE_USER[$i]}@${REMOTE_HOST[$i]}:${REMOTE_DIR[$i]}
 
-                # movendo os arquivos para o diretorio atual /home/user
-                sshpass -p $password ssh ${REMOTE_USER[$i]}@${REMOTE_HOST[$i]} mv ${REMOTE_DIR_AUX[$i]} ${REMOTE_DIR[$i]}
+                        # para buscar no cliente o arquivo compactado sendo da data atual ou não, mas sendo o mais recente
+                        ULTIMA_LINHA=$(sshpass -p $password ssh ${REMOTE_USER[$i]}@${REMOTE_HOST[$i]} ls -l | wc -l)
+                        BACKUP=$(sshpass -p $password ssh ${REMOTE_USER[$i]}@${REMOTE_HOST[$i]} ls -l ${REMOTE_DIR[$i]} | awk 'NR=='$ULTIMA_LINHA' {print $9}')
 
-                # Apagando o home e o arquivo compactado do diretorio atual
-                sshpass -p $password ssh ${REMOTE_USER[$i]}@${REMOTE_HOST[$i]} rm -rf home $BACKUP
-                exit 1
+                        # ssh no cliente e descompactação de arquivo no cliente
+                        sshpass -p $password ssh ${REMOTE_USER[$i]}@${REMOTE_HOST[$i]} tar -vzxf $BACKUP >/dev/null && echo "Arquivo $BACKUP transferido para $REMOTE_USER $REMOTE_HOST e descompactado em $REMOTE$
+                        # movendo os arquivos para o diretorio atual /home/user
+                        sshpass -p $password ssh ${REMOTE_USER[$i]}@${REMOTE_HOST[$i]} mv ${REMOTE_DIR_AUX[$i]} ${REMOTE_DIR[$i]}
+
+                        # Apagando o home e o arquivo compactado do diretorio atual /home/user
+                        sshpass -p $password ssh ${REMOTE_USER[$i]}@${REMOTE_HOST[$i]} rm -rf home $BACKUP
+                        exit 1  # Ao chegar nesse ponto, o usuário existe no arquivo de configuração, e existia backup desse usuário e o backup já foi realizado
+
+                else    # quando o usuário existe, porém não há backup realizado para ele
+                        echo -e "\nNão há backups realizados para esse usuário, realize backup na opção 1 e ENTER para depois realizar a restauração\n"
+                        exit 1
+                fi
         fi
 done
-echo "User not found"
+echo "User not found"  # se o usuário nao existir no arquivo de configuração
