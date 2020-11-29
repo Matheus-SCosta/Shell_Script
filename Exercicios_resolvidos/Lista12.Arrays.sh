@@ -63,3 +63,60 @@ echo "Soma dos valores da(as) coluna(as) C: ${vetor[C]}"
 echo "Soma dos valores da(as) coluna(as) D: ${vetor[D]}"
 
 
+# 3 - Considere o seguinte arquivo com nomes reais de pessoas:
+
+# Ana Thereza Vasques
+# Brissa Silvia Bracchi
+# Dehbora Kaynahra Patricia da Silva
+# Graucia Adyana Dantas Pereira
+# Ysabelle Aciole Lhima Santos de Oliveirah
+# Marylih Rodriguez Fehlixis
+
+# Escreva um script que abrevie o nome da cada pessoa na lista. Use arrays e strings.
+# Exemplo de saída:
+
+# Ana T. Vasques
+# Brissa S. Bracchi
+# Dehbora K. P. d. Silva
+# Graucia A. D. Pereira
+# Ysabelle A. L. S. d. Oliveirah
+# Marylih R. Fehlixis
+
+#!/bin/bash
+
+while read linha; do
+        pri_nome=$(echo $linha | awk '{print $1}')
+        ult_nome=$(echo $linha | awk '{print $NF}')
+        sem_pri_nome=$(echo $linha | grep -E -o '[ a-zA-Z]+')
+        nomes_meio=$(echo $sem_pri_nome | grep -E -o ' [ a-zA-Z]+ \b')
+
+        pri_nome_meio=$(echo $nomes_meio | awk '{print $1}')
+        seg_nome_meio=$(echo $nomes_meio | awk '{print $2}')
+        ter_nome_meio=$(echo $nomes_meio | awk '{print $3}')
+        qua_nome_meio=$(echo $nomes_meio | awk '{print $4}')
+        qui_nome_meio=$(echo $nomes_meio | awk '{print $5}')
+        sex_nome_meio=$(echo $nomes_meio | awk '{print $6}')
+        seti_nome_meio=$(echo $nomes_meio | awk '{print $7}') # fiz com possibilidade do nome ter até 7 nomes de meio
+
+        NFS_AUX=$(echo $linha | awk '{print NF}')   # números de nomes
+        NFS=$(( NFS_AUX - 2 ))   # número de nomes de meio
+
+        if [ $NFS -eq 1 ]; then
+                echo "${pri_nome} ${pri_nome_meio:0:1}. ${ult_nome}"
+        elif [ $NFS -eq 2 ]; then
+                echo "${pri_nome} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ult_nome}"
+        elif [ $NFS -eq 3 ]; then
+                echo "${pri_nome} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ter_nome_meio:0:1}. ${ult_nome}"
+        elif [ $NFS -eq 4 ]; then
+                echo "${pri_nome} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ter_nome_meio:0:1}. ${qua_nome_meio:0:1}. ${ult_nome}"
+        elif [ $NFS -eq 5 ]; then
+                echo "${pri_nome} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ter_nome_meio:0:1}. ${qua_nome_meio:0:1}. ${qui_nome_meio:0:1}. ${ult_nome}"
+        elif [ $NFS -eq 6 ]; then
+                echo "${pri_nome} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ter_nome_meio:0:1}. ${qua_nome_meio:0:1}. ${qui_nome_meio:0:1}. ${sex_nome_meio:0:1}. ${ult_nome}"
+        elif [ $NFS -eq 7 ]; then
+                echo "${pri_nome} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ter_nome_meio:0:1}. ${qua_nome_meio:0:1}. ${qui_nome_meio:0:1}. ${sex_nome_meio:0:1}. ${seti_nome_meio:0:1}. ${ult_nome}"
+
+        fi
+
+done < arquivo
+
