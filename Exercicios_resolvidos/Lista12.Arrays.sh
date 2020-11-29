@@ -84,11 +84,15 @@ echo "Soma dos valores da(as) coluna(as) D: ${vetor[D]}"
 
 #!/bin/bash
 
+i=0
 while read linha; do
         pri_nome=$(echo $linha | awk '{print $1}')
         ult_nome=$(echo $linha | awk '{print $NF}')
+        vetor_pri_nome=( ${vetor_pri_nome[*]} $pri_nome ) # utilizei arrays para guardar primeiros nomes
+        vetor_ult_nome=( ${vetor_ult_nome[*]} $ult_nome ) # utilizei arrays para guardar ultimos nomes
         sem_pri_nome=$(echo $linha | grep -E -o '[ a-zA-Z]+')
         nomes_meio=$(echo $sem_pri_nome | grep -E -o ' [ a-zA-Z]+ \b')
+
 
         pri_nome_meio=$(echo $nomes_meio | awk '{print $1}')
         seg_nome_meio=$(echo $nomes_meio | awk '{print $2}')
@@ -101,22 +105,21 @@ while read linha; do
         NFS_AUX=$(echo $linha | awk '{print NF}')   # números de nomes
         NFS=$(( NFS_AUX - 2 ))   # número de nomes de meio
 
-        if [ $NFS -eq 1 ]; then
-                echo "${pri_nome} ${pri_nome_meio:0:1}. ${ult_nome}"
+ 	if [ $NFS -eq 1 ]; then
+                echo "${vetor_pri_nome[$i]} ${pri_nome_meio:0:1}. ${vetor_ult_nome[$i]}"
         elif [ $NFS -eq 2 ]; then
-                echo "${pri_nome} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ult_nome}"
+                echo "${vetor_pri_nome[$i]} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${vetor_ult_nome[$i]}"
         elif [ $NFS -eq 3 ]; then
-                echo "${pri_nome} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ter_nome_meio:0:1}. ${ult_nome}"
+                echo "${vetor_pri_nome[$i]} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ter_nome_meio:0:1}. ${vetor_ult_nome[$i]}"
         elif [ $NFS -eq 4 ]; then
-                echo "${pri_nome} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ter_nome_meio:0:1}. ${qua_nome_meio:0:1}. ${ult_nome}"
+                echo "${vetor_pri_nome[$i]} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ter_nome_meio:0:1}. ${qua_nome_meio:0:1}. ${vetor_ult_nome[$i]}"
         elif [ $NFS -eq 5 ]; then
-                echo "${pri_nome} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ter_nome_meio:0:1}. ${qua_nome_meio:0:1}. ${qui_nome_meio:0:1}. ${ult_nome}"
+                echo "${vetor_pri_nome[$i]} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ter_nome_meio:0:1}. ${qua_nome_meio:0:1}. ${qui_nome_meio:0:1}. ${vetor_ult_nome[$i]}"
         elif [ $NFS -eq 6 ]; then
-                echo "${pri_nome} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ter_nome_meio:0:1}. ${qua_nome_meio:0:1}. ${qui_nome_meio:0:1}. ${sex_nome_meio:0:1}. ${ult_nome}"
+                echo "${vetor_pri_nome[$i]} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ter_nome_meio:0:1}. ${qua_nome_meio:0:1}. ${qui_nome_meio:0:1}. ${sex_nome_meio:0:1}. ${vetor_ult_nome[$i]}"
         elif [ $NFS -eq 7 ]; then
-                echo "${pri_nome} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ter_nome_meio:0:1}. ${qua_nome_meio:0:1}. ${qui_nome_meio:0:1}. ${sex_nome_meio:0:1}. ${seti_nome_meio:0:1}. ${ult_nome}"
-
+                echo "${vetor_pri_nome[$i]} ${pri_nome_meio:0:1}. ${seg_nome_meio:0:1}. ${ter_nome_meio:0:1}. ${qua_nome_meio:0:1}. ${qui_nome_meio:0:1}. ${sex_nome_meio:0:1}. ${seti_nome_meio:0:1}. ${vetor_ult_nomes[$i]}"
         fi
-
+	i=$(( i + 1 ))
 done < arquivo
 
