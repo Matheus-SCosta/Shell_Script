@@ -8,6 +8,10 @@ CONF="backup.conf"
 
 source $CONF
 
+horas=$((${TIME[0]} + 24 * ${TIME[1]}))
+
+echo "./backup.sh" | at now + $horas hours
+
 # verificar se o diretório de backup foi criado
 for USER in ${REMOTE_USER[@]}; do
     if [ ! -d "$SOURCE/$USER" ]; then
@@ -50,6 +54,3 @@ MINUTOS=$((RUNTIME / 60))
 
 # mostrar tempo de execução
 echo "Script finalizado em $MINUTOS minutos."
-
-
-
