@@ -2,31 +2,32 @@
 
 dir="/home/servidor/Documents/backup/"
 echo -e "\n"
-echo "MENU DE OPÇÕES PARA BACKUPS, ESCOLHA UMA DAS OPÇÕES PARA CONTINUAR: "
+echo "BACKUPS OPTIONS MENU, CHOOSE ONE OF THE OPTIONS TO CONTINUE:"
 
 
 while true; do
         echo "===================================================================="
-        echo "Digite 1 e ENTER para fazer backup de todos os usuários"
-        echo "Digite 2 e ENTER para fazer restauração"
-        echo "Digite 3 e ENTER para verificar os usuários que tem backups configurados"
-        echo "Digite 0 e ENTER para sair"
+        echo "Type 1 and ENTER to back up all users"  # Realizar backup de todas as maquinas que estão no arquivo de configuração backup.conf
+        echo "Type 2 and ENTER to restore" # Fazer restauração de usuário especifico informado pelo usuário
+        echo "Type 3 and ENTER to check users who have backups configured" # Verificar as maquinas com backup armazenado
+        echo "Type 4 and ENTER to view disk usage for backups performed" # Verificar uso de disco para cada usuário que tem backup realizado
+        echo "Type 0 and ENTER to exit"  # Opção para sair
         echo -e "\n"
         read -p ": " opcao
         echo -e "\n"
         case $opcao in
                 "1") ./backup.sh ;;
-                "2") ./restauracao.sh ;;
+                "2") ./restoration.sh ;;
                 "3")  if [ -d "$dir" ]; then
-                        echo "Usuários com backup configurados" && echo "==================================" && for i in $(ls $dir); do echo $i ; done && echo -e "\n"
+                        echo "Backup users configured" && echo "==================================" && for i in $(ls $dir); do echo $i ; done && echo -e "\n"
                       else
                         echo -e "\n"
-                        echo "Nenhum usuário com backup configurado! Necessário realizar algum backup em opção 1 e ENTER"
+                        echo "No backup users configured! It is necessary to perform some backup in option 1 and ENTER"
                         echo -e "\n"
                         fi ;;
+                "4") ./useDisc.sh ;;
                 "0") break ;;
         esac
 done
-
 
 
