@@ -7,25 +7,44 @@
 
 #!/bin/bash
 
+
 function maior(){
-        if (( $1 > $2 )); then
-                echo $1
-        elif (( $2 > $1 )); then
-                echo $2
-        fi
+        maior=$(cat $1 | awk 'NR==1 {print $1}')
+        for i in $(cat $1); do
+                if (( $i > $maior )); then
+                        maior=$i
+                fi
+        done
+echo $maior
 }
 
-function menor(){
-        if (( $1 < $2 )); then
-                echo $1
-        elif (( $2 < $1 )); then
-                echo $2
-        fi
+
+function menor() {
+        menor=$(cat $1 | awk 'NR==1 {print $1}')
+        for i in $(cat $1); do
+                if (( $i < $menor )); then
+                        menor=$i
+                fi
+
+        done
+echo $menor
 }
 
-maior=$(maior 7 25)
-menor=$(menor 13 25)
-echo "Maior: $maior - Menor: $menor"
+
+
+function main() {
+
+        read -p "numero 1: " num1
+        read -p "numero 2: " num2
+        echo $num1 $num2 > arq_aux
+        maior=$(maior arq_aux)
+        menor=$(menor arq_aux)
+        echo "Maior: $maior - Menor: $menor"
+        rm arq_aux
+}
+
+main
+
 
 
 
@@ -42,23 +61,14 @@ echo "Maior: $maior - Menor: $menor"
 # Escreva um script que importe as funções da questão anterior e use-as para encontrar o menor e o maior número do arquivo apresentado acima.
 
 
-function maior_menor() {
-        maior=0
-        menor=0
-        for i in $(cat $1); do
-                if [ $i -gt $maior ]; then
-                        maior=$i
-                elif [ $i -lt $menor ]; then
-                        menor=$i
-                fi
-        done
-        echo "Maior: $maior  -  Menor: $menor"
-}
+#!/bin/bash
 
 
-resultado=$(maior_menor arquivo)
-echo $resultado
+source questao1.sh  # para a importação funcionar é só comentar a chamada para o metodo main da questao1.sh ou ao invés de pedir para o usuario digitar os 2 números, pode se passar na questão1.sh um arquivo com os 2 números.
 
+maior=$(maior arquivo)
+menor=$(menor arquivo)
+echo "Maior: $maior - Menor: $menor"
 
 
 
