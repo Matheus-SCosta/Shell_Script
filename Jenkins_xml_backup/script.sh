@@ -1,11 +1,11 @@
 #!/bin/bash
 
 CLI='/root/valida-app/roles/slave/files/jenkins-cli.jar'
-java -jar /root/valida-app/roles/slave/files/jenkins-cli.jar -s http://10.0.20.52:8080/  -auth mateus-costa:mudar123 list-jobs > todos.txt
+java -jar /root/valida-app/roles/slave/files/jenkins-cli.jar -s http://10.0.20.52:8080/  -auth user:pass list-jobs > todos.txt
 
 for JOB in $(cat todos.txt); do
         echo $JOB
-        java -jar ${CLI} -s http://10.0.20.52:8080/ -auth mateus-costa:mudar123  get-job ${JOB} > ${JOB}.xml
+        java -jar ${CLI} -s http://10.0.20.52:8080/ -auth user:pass  get-job ${JOB} > ${JOB}.xml
 done < todos.txt
 
 
